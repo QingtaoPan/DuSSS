@@ -195,7 +195,7 @@ class my_novel(nn.Module):
         ################----------------------高斯建模--------------------------##################
         img_mu, img_logsigma, _ = self.con_img_gau_encoder(image_embeds_b_197_512, mask=None)  # [b, 197, 512]
         txt_mu, txt_logsigma, _ = self.con_txt_gau_encoder(text_feat_b_len_512, mask=None)  # [b, 10, 512]
-        img_mu_aug, img_logsigma_aug, _ = self.con_img_gau_encoder(image_embeds_b_197_512, mask=None)  # [b, 197, 512]
+        img_mu_aug, img_logsigma_aug, _ = self.con_img_gau_encoder(image_embeds_b_197_512_m, mask=None)  # [b, 197, 512]
         txt_mu_aug, txt_logsigma_aug, _ = self.con_txt_gau_encoder(text_feat_b_len_512_m, mask=None)  # [b, 10, 512]
         ret = {
             "image_mu": img_mu,  # [b, 197, 512]
