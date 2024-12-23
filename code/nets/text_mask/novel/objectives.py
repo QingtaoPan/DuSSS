@@ -41,7 +41,7 @@ def compute_contrast_i2t(img_emb, text_emb_aug, ret, temp):
     similarity = 1 - torch.mul((1 - cos_ori), torch.exp(-torch.div(distance_unc + 4, 5 * distance_sem)))
 
     labels = torch.arange(bs).to(similarity.device)  # [1, b]
-    loss_it = (F.cross_entropy(cos_ori, labels) + F.cross_entropy(cos_ori.transpose(0, 1), labels)) / 2
+    loss_it = (F.cross_entropy(similarity, labels) + F.cross_entropy(similarity.transpose(0, 1), labels)) / 2
     return loss_it
 
 def compute_contrast_t2i(text_emb, img_emb_aug, ret, temp):
@@ -64,7 +64,7 @@ def compute_contrast_t2i(text_emb, img_emb_aug, ret, temp):
     similarity = 1 - torch.mul((1 - cos_ori), torch.exp(-torch.div(distance_unc + 4, 5 * distance_sem)))
 
     labels = torch.arange(bs).to(similarity.device)  # [1, b]
-    loss_ti = (F.cross_entropy(cos_ori, labels) + F.cross_entropy(cos_ori.transpose(0, 1), labels)) / 2
+    loss_ti = (F.cross_entropy(similarity, labels) + F.cross_entropy(similarity.transpose(0, 1), labels)) / 2
     return loss_ti
 
 def compute_contrast_i2i(img_emb, img_emb_aug, ret, temp):
