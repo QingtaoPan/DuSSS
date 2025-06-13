@@ -124,8 +124,8 @@ class TextMask(nn.Module):
         # text_masks_per_batch = F.interpolate(text_masks_per_batch, scale_factor=4, mode="nearest")  # [b, 1, 224, 224]
         # text_masks_per_batch = self.last_activation(text_masks_per_batch)  # [b, 1, 224, 224]
         ##################################################################################################################
-        simmap = torch.einsum("bchw,nc->bnhw", patch_emb_dense, text_emb)  # [b, b, 56, 56]
-        soft_mask = torch.sigmoid(simmap)
+        simmap = torch.einsum("bchw,bc->bhw", patch_emb_dense, text_emb)  # [b, 56, 56]
+        soft_mask = torch.sigmoid(simmap).unsqueeze(1)  # [b, 1, 56, 56]
         mask_final = self.apply_pamr(unlabeled_images, soft_mask)  # [b, b, 56, 56]
         mask_final = self.kp_branch(patch_emb_dense, text_emb, mask_final)  # [b, b, 56, 56]
         mask_final = F.interpolate(mask_final, (224, 224), mode='bilinear')  # [B, N, 224, 224]
