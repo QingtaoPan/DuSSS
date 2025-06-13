@@ -11,7 +11,7 @@ backbones/image_encoder/
     ImageEncoder.py
     vits.py
 ```
-download the text encoder at:. unzip the Bio_ClinicalBERT.zip. Put it to backbones/bert_model
+download the text encoder at: [text encoder](https://huggingface.co/pqt33/bert_model). unzip the Bio_ClinicalBERT.zip. Put it to backbones/bert_model
 ```
 backbones/bert_model/
     Bio_ClinicalBERT
