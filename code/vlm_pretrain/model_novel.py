@@ -85,7 +85,7 @@ def get_loss(hand_mask, soft_mask, image_feat, text_feat, image, mask_encoder, v
 
 bert_path = '/root/data1/lvit_semi_novel/nets/text_mask/bert_model'
 # bert_path = './bert_model'
-class my_novel(nn.Module):
+class my_vlm(nn.Module):
     def __init__(self, batch_size, embed_dim=512):
         super().__init__()
         self.temp = nn.Parameter(torch.ones([]) * 0.07)
