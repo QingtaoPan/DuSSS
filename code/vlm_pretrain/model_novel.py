@@ -2,7 +2,8 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 import numpy as np
-from .novel.vit import VisionTransformer
+# from .novel.vit import VisionTransformer
+from backbones.image_encoder.ImageEncoder import ImageEncoder_Vit
 from .novel.PDE import DisTrans
 from .novel import objectives
 from .novel.decoders import GDecoder
@@ -97,9 +98,7 @@ class my_vlm(nn.Module):
         self.last_activation = nn.Sigmoid()
         self.mask_out = nn.Conv2d(batch_size, 1, kernel_size=(1, 1), stride=(1, 1))
 
-        self.visual_encoder = VisionTransformer(
-            img_size=224, patch_size=16, embed_dim=768, depth=1, num_heads=8,
-            mlp_ratio=4, qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6))
+        self.visual_encoder = ImageEncoder_Vit()
         self.vision_proj = nn.Linear(768, self.embed_dim)
         self.vision_proj_512 = nn.Linear(768, self.embed_dim)
         #---------------------------------------- text encodeer ---------------------------------------#
@@ -109,9 +108,7 @@ class my_vlm(nn.Module):
         self.text_proj_512 = nn.Linear(768, self.embed_dim)
         #---------------------------------------- text encodeer ---------------------------------------#
 
-        self.visual_encoder_m = VisionTransformer(
-            img_size=224, patch_size=16, embed_dim=768, depth=1, num_heads=8,
-            mlp_ratio=4, qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-6))
+        self.visual_encoder_m = ImageEncoder_Vit()
         self.vision_proj_m = nn.Linear(768, self.embed_dim)
         self.vision_proj_512_m = nn.Linear(768, self.embed_dim)
         #---------------------------------------- text encodeer ---------------------------------------#
